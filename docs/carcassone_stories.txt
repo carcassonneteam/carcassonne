@@ -1,0 +1,54 @@
+sp - story point
+
+zarządzanie projektami
+
+	chciałbym uruchomić grę - 40sp
+	chciałbym zapisać stan gry - 3sp
+ 	chciałbym kontynuować wcześniej zapisaną grę - 3sp
+	zakończyć grę - 1sp
+	prowadzić rozgrywkę przeciwko 1-4 graczy - 5sp
+	
+	określić ilość graczy - 1sp
+	określić nazwę gracza - 1sp
+	określic kolejność wykonywania akcji - 2sp
+	wybrać kolor pionków - 1sp
+	rozpoczęcie rozgrywki - 1sp
+	
+	sprawdzić stan rozgrywki (punktacja) - 5sp
+	gra podlicza punktację po ruchu - 1sp
+	otrzymać punkty za ukończenie traktu- jeżeli mam na nim pionka - 1sp
+		- każda płytka ukończonego traktu = 1 punkt
+		
+	otrzymac punkty za ukończenie miasta - jeżeli mam na nim pionka - 2sp
+		- miasto może składać się z 2 płytek = 2 punkty (+1 za tarczę)
+		- zbudować miasto składające się z conajmniej 3 płytek = 2 punkty za każdą płytkę ukończonego miasta
+		- otrzymać za każdą tarczę w ukończonym mieście 2 punkty
+	
+	otrzymać punkty za ukończenie klasztoru	- jeżeli mam na nim pionka - 1sp
+		- 9 punktów za ukończoną strukturę = otoczony w całości płytkami
+		
+	gra kontrolowała poprawność akcji/rozgrywki - 8sp
+	gra zakończy się po wylosowaniu ostatniej płytki - 5sp
+		- otrzymać za nieukonczony trakt 1 punkt za płytkę jeżeli mam na nim pionka 
+		- otrzymać za nieukonczone miasto 1 punkt za płytkę jeżeli mam na nim pionka
+		- otrzymać za nieukonczony klasztor 1 punkt - jeżeli mam na nim pionka + 1 punkt za
+		  każdą przylegającą płytkę 
+		- *otrzymać punkty za posiadane łąki - jeżeli mamy
+		  na nich chłopa pionka - 3 punkty za każde sąsiednie/przylegające ukończone miasto
+		
+	gra rozliczy, podczas konfliktu, punkty zgodnie z zasadami - 1sp
+		- punkty otrzymają gracze z największą ilością pionków w aktualnie ukończonej strukturze
+			
+	wykonanie czynności w mojej turze - 8sp
+		- wylosować płytkę terenu i umieścić ją na planszy, tak aby zachować ciągłość krajobrazu
+		- wylosować płytkę terenu i umieścić ją na planszy, tak aby zachować ciągłość
+		  krajobrazu + umieścić podwładnego na tej płytce  
+		- wylosować płytkę terenu i umieścić ją na planszy, tak aby zachować ciągłość
+		  krajobrazu + automatycznie zabrać podwładnego 
+	
+		
+	zachowanie ciagłości krajobrazu - 3sp
+		- krawędzie nowej płytki muszą pasować do poprzednio ułożonych płytek;
+		płytki zawierają 3 typy krawędzi: trakt, miasto, pole
+		
+	

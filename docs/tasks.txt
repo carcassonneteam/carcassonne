@@ -1,0 +1,59 @@
+przygotowanie opisu projektu 8sp
+
+przygotowanie szkieletu projektu 8sp
+description:
+
+
+design menu 8sp
+tło 
+przyciski
+rozmieszczenie
+
+
+
+Ekran startowy - Menu: 5sp
+grafika 
+logika
+testy
+
+Ekran rozpoczęcia gry: 5sp
+grafika
+logika
+testy
+
+Ekran wczytania stanu gry: 3sp
+grafika
+logika
+testy
+
+Ekran zapisu stanu gry: 3sp
+grafika
+logika
+testy
+
+Ekran opcji gry: 3sp
+grafika
+logika
+testy
+
+
+design hud: 5sp
+przycisk opcje
+przycisk zakończenia tury
+wykaz graczy: nazwa, kolor, punkty
+
+
+design planszy 5sp
+stworzenie modelu pionków 13sp
+stworzenie modelu płytki  5sp
+
+Logika gry:  100 sp
+operacje na pionkach
+operacje na płytkach
+zliczanie punktacji
+weryfikacja akcji gracza
+sprawdzenie warunku zakończenia gry
+
+
+
+
