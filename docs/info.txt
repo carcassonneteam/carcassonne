@@ -1,0 +1,19 @@
+Carcassonne
+	Projekt gry komputerowej inspirowany zasadami gry planszowej Carcassonne.
+	https://pl.wikipedia.org/wiki/Carcassonne_(gra)/
+
+Zespół:
+	- Marek Kieruzel
+	- Piotr Krauzowicz
+	- Wiesław Kuziel
+
+Sposoby komunikacji:
+	- Slack - https://carcassonneproject.slack.com/
+	- Telefon
+	- Mail
+
+Repozytorium:
+	https://github.com/carcassonneteam/carcassonne/
+
+Technologia:
+	Silnik gry Unity, 2.5D
