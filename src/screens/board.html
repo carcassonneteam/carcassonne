@@ -1,0 +1,76 @@
+<html>
+<head>
+	<meta charset="utf-8"/>
+
+	<style>
+		.results {
+			width: 200px;
+			padding: 15px;
+			border: solid 1px #ccc;
+			border-radius: 10px;
+		}
+
+		.results .player {
+			line-height: 15px;
+			margin-left: 15px;
+		}
+
+		.results .player .color {
+			display: inline-block;
+			width: 15px;
+			height: 15px;
+			float: right;
+		}
+
+		.results .player .points {
+			display: inline-block;
+			margin-right: 5px;
+			float: right;
+		}
+
+		.color.red {
+			background: red;
+		}
+
+		.color.blue {
+			background: blue;
+		}
+
+		.color.green {
+			background: green;
+		}
+
+		.color.yellow {
+			background: yellow;
+		}
+
+		.color.black {
+			background: black;
+		}
+	</style>
+</head>
+<body>
+	<ol id="result-table" class="results">
+	</ol>
+
+	<script type="text/javascript">
+		var $results = $('#result-table');
+
+		$(gameController.getPlayers()).each(function() {
+			var $row = $("<li/>")
+				.addClass("player")
+				.text(this.name);
+			var $points = $("<div/>")
+				.addClass("points")
+				.text(this.points);
+			var $color = $("<div/>")
+				.addClass("color")
+				.addClass(this.color);
+
+			$row.append($color);
+			$row.append($points);
+			$results.append($row);
+		});
+	</script>
+</body>
+</html>
