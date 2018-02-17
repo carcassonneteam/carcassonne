@@ -1,0 +1,77 @@
+<html>
+<head>
+	<meta charset="utf-8"/>
+    <style>
+    	input {
+    		display: block;
+    		margin: 5px 0;
+    	}
+
+    	button, input[type=submit] {
+    		display: inline-block;
+    	}
+	</style>
+</head>
+<body>
+ 	<form>
+ 		<div>
+ 			Liczba graczy:
+ 			<select name="playerNo">
+ 				<option value="">-</option>
+ 				<option value="2">2</option>
+ 				<option value="3">3</option>
+ 				<option value="4">4</option>
+ 				<option value="5">5</option>
+ 			</select>
+
+ 			<div id="names">
+ 			</div>
+
+ 			<button id="cancel">Anuluj</button>
+ 			<input type="submit" value="Graj" id="play" style="display: none" />
+ 		</div>
+ 	</form>
+ 	<script type="text/javascript">
+ 		$('form select').change(function() {
+ 			var $names = $('#names');
+ 			var $play = $('#play');
+ 			$names.html("");
+ 			if (this.value) {
+
+ 				var playerNo = parseInt(this.value);
+ 				var index;
+ 				for (index = 0; index < playerNo; index++) {
+
+ 					$input = createNameInput(index);
+ 					$names.append($input);
+ 				}
+ 				$play.show();
+ 			} else {
+				$play.hide();
+ 			}
+ 		});
+
+ 		$("#cancel").click(function(ev) {
+ 			ev.preventDefault();
+ 			gameController.showScreen('main');
+ 		});
+
+ 		$('form').submit(function(ev) {
+ 			ev.preventDefault();
+ 			var colorIndex = 0;
+ 			$("#names input").each(function() {
+ 				gameController.addPlayer(new Player(this.value, Player.colors[colorIndex++]));
+ 			});
+
+ 			gameController.showScreen('board');
+ 		});
+
+		function createNameInput(index) {
+			return $("<input />")
+				.attr("name", "player_" + index)
+				.attr("required", true)
+				.attr("placeholder", "Podaj nazwę gracza " + (index + 1));
+		}
+ 	</script>
+</body>
+</html>
