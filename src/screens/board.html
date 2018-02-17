@@ -56,21 +56,27 @@
 	<script type="text/javascript">
 		var $results = $('#result-table');
 
-		$(gameController.getPlayers()).each(function() {
-			var $row = $("<li/>")
-				.addClass("player")
-				.text(this.name);
-			var $points = $("<div/>")
-				.addClass("points")
-				.text(this.points);
-			var $color = $("<div/>")
-				.addClass("color")
-				.addClass(this.color);
+		function drawResultTable() {
+			$results.html('');
+			$(gameController.getPlayers()).each(function() {
+				var $row = $("<li/>")
+					.addClass("player")
+					.text(this.name);
+				var $points = $("<div/>")
+					.addClass("points")
+					.text(this.points);
+				var $color = $("<div/>")
+					.addClass("color")
+					.addClass(this.color);
 
-			$row.append($color);
-			$row.append($points);
-			$results.append($row);
-		});
+				$row.append($color);
+				$row.append($points);
+				$results.append($row);
+			});
+		}
+
+		drawResultTable();
+
 	</script>
 </body>
 </html>
