@@ -19,4 +19,8 @@
 		return players;
 	};
 
+	window.Game.prototype.getPlayer = function(num) {
+		return players[num];
+	}
+
 })(jQuery, window);
