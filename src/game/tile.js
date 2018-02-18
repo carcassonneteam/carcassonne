@@ -38,7 +38,7 @@
             return this.rotation;
         },
         hasNeighbour: function (edge) {
-            return this.edges[edge] != null;
+            return this.edges[edge] !== null;
         },
         neighbourFits: function (edge, neighbour) {
             return neighbour[edge] === this.edges[edge];
@@ -54,7 +54,18 @@
             this.neighbours[edge] = neighbour;
         },
         initDrag: function() {
-            //TODO: draggable
+            this.$container.draggable({
+                revert: true,
+                zIndex: 1000,
+                helper: 'clone',
+                appendTo: 'body',
+                start: function(event, ui) {
+                    $(this).hide();
+                },
+                stop: function(event, ui) {
+                    $(this).show();
+                }
+            });
         },
         draw: function (position) {
             this.$container.not(":has(img)").append($("<img/>")

@@ -1,7 +1,7 @@
 .fixed-left {
     width: 15%;
     position: fixed;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .results {
@@ -77,6 +77,7 @@
     overflow: auto;
     background-image: repeating-linear-gradient(0deg,transparent,transparent 100px,#CCC 100px,#CCC 101px),repeating-linear-gradient(-90deg,transparent,transparent 100px,#CCC 100px,#CCC 101px);
     background-size: 100px 100px;
+    z-index: 10;
 }
 
 .tile {
@@ -84,7 +85,7 @@
 }
 
 .player-hud {
-    overflow: hidden;
+    overflow: visible;
     padding: 15px;
     margin-top: 20px;
 }
@@ -95,4 +96,10 @@
     border: solid 2px #ddd;
     margin: auto;
     box-shadow: inset 10px 10px 67px 0px rgba(0,0,0,0.75);
+    overflow: visible;
 }
+
+.ui-draggable {
+    cursor: pointer;
+}
+

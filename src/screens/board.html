@@ -46,17 +46,20 @@
 
         var game = window.gameController;
         var turn;
+        var $activeTile;
 
         setTimeout(function () {
 		    var board = new Board($("#board"));
             turn = game.firstTurn();
+            $activeTile = turn.tile.draw();
 		    updatePlayerHud();
         }, 500);
 
         function updatePlayerHud() {
             $('.player.active').removeClass('active');
             $('.player').eq(turn.playerNum).addClass('active');
-            $('#drawn-tile').html(turn.tile.draw());
+            $('#drawn-tile').html($activeTile);
+            turn.tile.initDrag();
         }
 
 	</script>

@@ -11,15 +11,16 @@
             $.each(window.Tiles, function() {
                 tiles.push($.extend({}, new Tile(this.name, this.edges))); //copy tiles from DB
             });
-            startingTile = tiles.splice(0, 1)[0];
+            startingTile = this.removeAndGet(0);
+        },
+        removeAndGet: function (index) {
+            return tiles.splice(index, 1)[0];
         },
         starting: function () {
-            console.log(startingTile);
             return $.extend({}, startingTile);
-        },
-        random: function () {
+        }, random: function () {
             var index = Math.floor(Math.random()*tiles.length);
-            return tiles.splice(index, 1)[0];
+            return this.removeAndGet(index);
         }
     };
 
