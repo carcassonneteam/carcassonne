@@ -1,9 +1,10 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="assets/lib/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="game/game.js"></script>
         <script type="text/javascript" src="game/player.js"></script>
+        <script type="text/javascript" src="game/board.js"></script>
     </head>
     <body>
     	<h1>Carcasonne</h1>
@@ -13,7 +14,10 @@
 
     	<script type="text/javascript">
 			var game = new Game();
-			game.showScreen('main');
+			game.addPlayer(new Player("Player 1", Player.colors[0]));
+			game.addPlayer(new Player("Player 2", Player.colors[1]));
+			game.showScreen("board");
+			//game.showScreen('main');
     	</script>
     </body>
 </html>

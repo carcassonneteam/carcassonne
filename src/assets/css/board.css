@@ -1,0 +1,64 @@
+.results {
+    width: 15%;
+    padding: 15px;
+    margin: 0;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    position: fixed;
+}
+
+.results .player {
+    width: 100%;
+    line-height: 15px;
+    padding-top: 5px;
+    clear: both;
+}
+
+.results .player .name {
+    display: inline-block;
+    width: auto;
+    line-height: 15px;
+    float: left;
+}
+
+.results .player .color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    float: right;
+}
+
+.results .player .points {
+    display: inline-block;
+    margin-right: 5px;
+    float: right;
+}
+
+.color.red {
+    background: red;
+}
+
+.color.blue {
+    background: blue;
+}
+
+.color.green {
+    background: green;
+}
+
+.color.yellow {
+    background: yellow;
+}
+
+.color.black {
+    background: black;
+}
+
+.board {
+    border: solid 1px #ccc;
+    width: 80%;
+    margin-left: 20%;
+    height: 600px;
+    overflow: auto;
+}
