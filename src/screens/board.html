@@ -3,8 +3,14 @@
     <link href="assets/css/board.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-	<div id="result-table" class="results">
-	</div>
+    <div class="fixed-left">
+        <div id="result-table" class="results">
+        </div>
+
+        <div id="player-hud" class="player-hud">
+            <div id="drawn-tile" class="drawn-tile"></div>
+        </div>
+    </div>
 
     <div id="board" class="board"></div>
 
@@ -16,10 +22,11 @@
 			var index = 0;
 			$(gameController.getPlayers()).each(function() {
 				var $row = $("<div/>")
-					.addClass("player");
+					.addClass("player")
+                    .addClass("player-" + index);
 				var $name = $("<div/>")
                     .addClass("name")
-                    .text(++index + ". " + this.name);
+                    .text((index+1) + ". " + this.name);
 				var $points = $("<div/>")
 					.addClass("points")
 					.text(this.points);
@@ -31,14 +38,26 @@
 				$row.append($color);
 				$row.append($points);
 				$results.append($row);
+				index++;
 			});
 		}
 
 		drawResultTable();
 
-        $(window).on('load', function () {
+        var game = window.gameController;
+        var turn;
+
+        setTimeout(function () {
 		    var board = new Board($("#board"));
-        });
+            turn = game.firstTurn();
+		    updatePlayerHud();
+        }, 500);
+
+        function updatePlayerHud() {
+            $('.player.active').removeClass('active');
+            $('.player').eq(turn.playerNum).addClass('active');
+            $('#drawn-tile').html(turn.tile.draw());
+        }
 
 	</script>
 </body>

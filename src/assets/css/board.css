@@ -1,24 +1,36 @@
-.results {
+.fixed-left {
     width: 15%;
+    position: fixed;
+    overflow: hidden;
+}
+
+.results {
     padding: 15px;
     margin: 0;
     border: solid 1px #ccc;
     border-radius: 10px;
     overflow: hidden;
-    position: fixed;
 }
 
 .results .player {
     width: 100%;
     line-height: 15px;
-    padding-top: 5px;
+    padding: 5px 0;
     clear: both;
+    overflow: hidden;
+}
+
+.results .player.active {
+    background: linear-gradient(to bottom, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 50%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    border: solid 1px gold;
+    color: darkgreen;
 }
 
 .results .player .name {
     display: inline-block;
     width: auto;
     line-height: 15px;
+    padding-left: 5px;
     float: left;
 }
 
@@ -27,6 +39,7 @@
     width: 15px;
     height: 15px;
     float: right;
+    margin-right: 5px;
 }
 
 .results .player .points {
@@ -68,4 +81,18 @@
 
 .tile {
     position: absolute;
+}
+
+.player-hud {
+    overflow: hidden;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.player-hud .drawn-tile {
+    width: 100px;
+    height: 100px;
+    border: solid 2px #ddd;
+    margin: auto;
+    box-shadow: inset 10px 10px 67px 0px rgba(0,0,0,0.75);
 }

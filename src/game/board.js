@@ -28,15 +28,13 @@
     };
 
     var loadStartingTile = function() {
-        var startingTile = new Tile(Tiles[0].name, Tiles[0].edges);
+        var startingTile = TileController.starting();
         $container.append(startingTile.draw(center()));
     };
 
     var center = function () {
         var cols = $container.innerWidth()/TileSize[0];
         var rows = $container.innerHeight()/TileSize[1];
-        console.log(rows);
-        console.log(cols);
         return [TileSize[0] * Math.floor(cols/2), TileSize[1] * Math.floor(rows/2)];
     };
 
