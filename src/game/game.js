@@ -8,7 +8,11 @@
 	};
 
 	window.Game.prototype.showScreen = function(screen) {
-		$("#game").load('screens/' + screen + ".html");
+		$("#game").load('screens/' + screen + ".html", function() {
+		    setTimeout(function () {
+                $(window).trigger('load');
+            }, 100);
+        });
 	};
 
 	window.Game.prototype.addPlayer = function(player) {
