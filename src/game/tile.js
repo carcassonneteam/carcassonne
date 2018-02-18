@@ -61,11 +61,17 @@
                 appendTo: 'body',
                 start: function(event, ui) {
                     $(this).hide();
+                    console.log($(this).data());
                 },
                 stop: function(event, ui) {
                     $(this).show();
                 }
             });
+        },
+        destroyDrag: function () {
+            if (this.$container.data('uiDraggable')) {
+                this.$container.draggable("destroy");
+            }
         },
         draw: function (position) {
             this.$container.not(":has(img)").append($("<img/>")

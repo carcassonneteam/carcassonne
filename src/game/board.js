@@ -1,19 +1,21 @@
 (function($, window) {
     var $container;
+    var tiles;
 
     var Board = function($cont) {
         $container = $cont;
         clear();
-        init();
+        init.call(this);
     };
 
     var clear = function() {
+        tiles = [];
         $container.html('');
     };
 
     var init = function () {
         adjustSize();
-        loadStartingTile();
+        loadStartingTile.call(this);
     };
 
     var adjustSize = function () {
@@ -28,8 +30,7 @@
     };
 
     var loadStartingTile = function() {
-        var startingTile = TileController.starting();
-        $container.append(startingTile.draw(center()));
+        this.add(TileController.starting())
     };
 
     var center = function () {
@@ -38,5 +39,14 @@
         return [TileSize[0] * Math.floor(cols/2), TileSize[1] * Math.floor(rows/2)];
     };
 
+    var proto = {
+        add: function(tile) {
+            tiles.push(tile);
+            tile.destroyDrag();
+            $container.append(tile.draw(center()));
+        }
+    };
+
+    $.extend(Board.prototype, proto);
     window.Board = Board;
 })(jQuery, window);
