@@ -4,6 +4,8 @@ EdgeType = {
     Field: 3
 };
 
+TileSize = [100, 100];
+
 Tiles = [
     {
         name: "City1n - rwe",

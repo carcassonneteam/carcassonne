@@ -56,9 +56,16 @@
 }
 
 .board {
+    position: relative;
     border: solid 1px #ccc;
     width: 80%;
     margin-left: 20%;
-    height: 600px;
+    height: 100vh;
     overflow: auto;
+    background-image: repeating-linear-gradient(0deg,transparent,transparent 100px,#CCC 100px,#CCC 101px),repeating-linear-gradient(-90deg,transparent,transparent 100px,#CCC 100px,#CCC 101px);
+    background-size: 100px 100px;
+}
+
+.tile {
+    position: absolute;
 }

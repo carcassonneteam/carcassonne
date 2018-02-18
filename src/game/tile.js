@@ -56,15 +56,20 @@
         initDrag: function() {
             //TODO: draggable
         },
-        draw: function () {
-            if (!this.$container.has("img")) {
-                this.$container.append($("<img/>")
-                    .attr("src", TILES_DIR + "/" + name + ".png"))
-            }
+        draw: function (position) {
+            this.$container.not(":has(img)").append($("<img/>")
+                    .attr("src", TILES_DIR + "/" + this.name + ".png"));
 
             if (this.rotation > 0) {
                 this.$container.find("img")
                     .addClass("rotate-" + this.rotation);
+            }
+
+            if (position) {
+                this.$container.css({
+                    left: position[0] + 'px',
+                    top: position[1] + 'px'
+                });
             }
 
             return this.$container;

@@ -1,6 +1,6 @@
 <html>
 <head>
-    <link href="../assets/css/board.css" type="text/css" rel="stylesheet" />
+    <link href="assets/css/board.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 	<div id="result-table" class="results">
@@ -36,7 +36,9 @@
 
 		drawResultTable();
 
-		var board = new Board($("#board"));
+        $(window).on('load', function () {
+		    var board = new Board($("#board"));
+        });
 
 	</script>
 </body>
