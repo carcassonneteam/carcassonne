@@ -22,7 +22,7 @@ Trello:
 	https://trello.com/b/KNsJ27bt/carcassonne
 
 Slack:
-	https://carcassonneproject.slack.com/
+	https://carcassonneproject.slack.com
 
 Mails:
 	marek.kieruzel(at)student.uj.edu.pl
