@@ -1,7 +1,4 @@
 <html>
-<head>
-    <link href="assets/css/board.css" type="text/css" rel="stylesheet" />
-</head>
 <body>
     <div class="fixed-left">
         <div id="result-table" class="results">
@@ -47,9 +44,10 @@
         var game = window.gameController;
         var turn;
         var $activeTile;
+        var board;
 
         setTimeout(function () {
-		    var board = new Board($("#board"));
+		    board = new Board($("#board"));
             turn = game.firstTurn();
             $activeTile = turn.tile.draw();
 		    updatePlayerHud();
@@ -59,7 +57,11 @@
             $('.player.active').removeClass('active');
             $('.player').eq(turn.playerNum).addClass('active');
             $('#drawn-tile').html($activeTile);
-            turn.tile.initDrag();
+            turn.tile.initDrag(function(userTile) {
+                board.activateDropZone(userTile);
+            }, function () {
+                board.deactivateDropZone();
+            });
         }
 
 	</script>

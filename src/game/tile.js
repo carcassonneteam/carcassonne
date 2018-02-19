@@ -7,26 +7,36 @@
         this.$container = $("<div/>")
             .addClass("tile");
         this.$container.data('tile', this);
+
+        this.neighbours = {
+            n: null,
+            e: null,
+            s: null,
+            w: null
+        };
+    };
+
+    Tile.oppositeEdge = function (edge) {
+        switch (edge) {
+            case 'n':
+                return 's';
+            case 'e':
+                return 'w';
+            case 's':
+                return 'n';
+            case 'w':
+                return 'e';
+        }
     };
 
     var proto = {
         $container: null,
         name: null,
-        edges: {
-            n: null,
-            e: null,
-            s: null,
-            w: null
-        },
-        neighbours: {
-            n: null,
-            e: null,
-            s: null,
-            w: null
-        },
+        edges: null,
+        neighbours: null,
         rotation: 0,
         rotateRight: function() {
-            this.rotation = (rotation + 90) % 360;
+            this.rotation = (this.rotation + 90) % 360;
 
             var src = $.extend({}, this.edges);
             this.edges.n = src.w;
@@ -38,10 +48,10 @@
             return this.rotation;
         },
         hasNeighbour: function (edge) {
-            return this.edges[edge] !== null;
+            return this.neighbours[edge] !== null;
         },
         neighbourFits: function (edge, neighbour) {
-            return neighbour[edge] === this.edges[edge];
+            return neighbour.edges[Tile.oppositeEdge(edge)] === this.edges[edge];
         },
         addNeighbour: function (edge, neighbour) {
             if (this.hasNeighbour(edge)) {
@@ -53,18 +63,32 @@
 
             this.neighbours[edge] = neighbour;
         },
-        initDrag: function() {
+        clearNeighbours: function () {
+            for (var edge in this.neighbours) {
+                if (this.neighbours.hasOwnProperty(edge)) {
+                    this.neighbours[edge] = null;
+                }
+            }
+        },
+        initDrag: function(onStart, onStop) {
             this.$container.draggable({
-                revert: true,
+                revert: false,
                 zIndex: 1000,
                 helper: 'clone',
                 appendTo: 'body',
                 start: function(event, ui) {
                     $(this).hide();
-                    console.log($(this).data());
+                    if (onStart) {
+                        var tile = $(this).data('tile');
+                        onStart.call(this, tile);
+                    }
                 },
                 stop: function(event, ui) {
                     $(this).show();
+                    if (onStop) {
+                        var tile = $(this).data('tile');
+                        onStop.call(this, tile);
+                    }
                 }
             });
         },
