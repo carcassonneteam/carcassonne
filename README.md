@@ -5,11 +5,8 @@ Carcassonne:
 Sk³ad zespo³u: 
 
 	Piotr Krauzowicz
-
 	Marek Kieruzel
-
 	Wies³aw Kuziel
-
 	Mariusz	Jopek	
 
 
