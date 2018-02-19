@@ -1,67 +1,32 @@
 <html>
 <head>
-	<meta charset="utf-8"/>
-
-	<style>
-		.results {
-			width: 200px;
-			padding: 15px;
-			border: solid 1px #ccc;
-			border-radius: 10px;
-		}
-
-		.results .player {
-			line-height: 15px;
-			margin-left: 15px;
-		}
-
-		.results .player .color {
-			display: inline-block;
-			width: 15px;
-			height: 15px;
-			float: right;
-		}
-
-		.results .player .points {
-			display: inline-block;
-			margin-right: 5px;
-			float: right;
-		}
-
-		.color.red {
-			background: red;
-		}
-
-		.color.blue {
-			background: blue;
-		}
-
-		.color.green {
-			background: green;
-		}
-
-		.color.yellow {
-			background: yellow;
-		}
-
-		.color.black {
-			background: black;
-		}
-	</style>
+    <link href="assets/css/board.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-	<ol id="result-table" class="results">
-	</ol>
+    <div class="fixed-left">
+        <div id="result-table" class="results">
+        </div>
+
+        <div id="player-hud" class="player-hud">
+            <div id="drawn-tile" class="drawn-tile"></div>
+        </div>
+    </div>
+
+    <div id="board" class="board"></div>
 
 	<script type="text/javascript">
 		var $results = $('#result-table');
 
 		function drawResultTable() {
 			$results.html('');
+			var index = 0;
 			$(gameController.getPlayers()).each(function() {
-				var $row = $("<li/>")
+				var $row = $("<div/>")
 					.addClass("player")
-					.text(this.name);
+                    .addClass("player-" + index);
+				var $name = $("<div/>")
+                    .addClass("name")
+                    .text((index+1) + ". " + this.name);
 				var $points = $("<div/>")
 					.addClass("points")
 					.text(this.points);
@@ -69,13 +34,33 @@
 					.addClass("color")
 					.addClass(this.color);
 
+				$row.append($name);
 				$row.append($color);
 				$row.append($points);
 				$results.append($row);
+				index++;
 			});
 		}
 
 		drawResultTable();
+
+        var game = window.gameController;
+        var turn;
+        var $activeTile;
+
+        setTimeout(function () {
+		    var board = new Board($("#board"));
+            turn = game.firstTurn();
+            $activeTile = turn.tile.draw();
+		    updatePlayerHud();
+        }, 500);
+
+        function updatePlayerHud() {
+            $('.player.active').removeClass('active');
+            $('.player').eq(turn.playerNum).addClass('active');
+            $('#drawn-tile').html($activeTile);
+            turn.tile.initDrag();
+        }
 
 	</script>
 </body>
