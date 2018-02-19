@@ -148,7 +148,10 @@
     };
 
     var resetUserTile = function() {
-        var $userTile = gameController.currentTurn().tile.draw();
+        var tile = gameController.currentTurn().tile;
+        var $userTile = tile.draw();
+
+        tile.clearNeighbours();
         $userTile.css('position', 'static');
         $tileContainer.append($userTile);
     };

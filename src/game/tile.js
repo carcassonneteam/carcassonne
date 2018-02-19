@@ -8,12 +8,7 @@
             .addClass("tile");
         this.$container.data('tile', this);
 
-        this.neighbours = {
-            n: null,
-            e: null,
-            s: null,
-            w: null
-        };
+        this.clearNeighbours();
     };
 
     Tile.oppositeEdge = function (edge) {
@@ -81,6 +76,14 @@
         },
         removeNeighbour: function (edge) {
             this.neighbours[edge] = null;
+        },
+        clearNeighbours: function () {
+            this.neighbours = {
+                n: null,
+                e: null,
+                s: null,
+                w: null
+            };
         },
         initDrag: function(onStart, onStop) {
             this.$container.draggable({
