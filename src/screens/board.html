@@ -5,11 +5,15 @@
         </div>
 
         <div class="buttons">
-            <button title="Obróć w lewo" id="rotate-left"><i class="fas fa-undo"></i></button>
-            <button title="Obróć w prawo" id="rotate-right"><i class="fas fa-redo"></i></button>
+            <button class="icon" title="Obróć w lewo" id="rotate-left"><i class="fas fa-undo"></i></button>
+            <button class="icon" title="Obróć w prawo" id="rotate-right"><i class="fas fa-redo"></i></button>
         </div>
         <div id="player-hud" class="player-hud">
             <div id="drawn-tile" class="drawn-tile"></div>
+        </div>
+
+        <div class="buttons">
+            <button id="end-turn" class="end-turn">Zakończ turę</button>
         </div>
     </div>
 
@@ -69,6 +73,16 @@
         $('#rotate-right').click(function() {
             board.resetUserTile();
             turn.tile.rotateRight();
+        });
+
+        $('#end-turn').click(function() {
+            if (board.commitTile()) {
+                turn.tile.destroyDrag();
+                turn = game.nextTurn();
+                updatePlayerHud();
+            } else {
+                alert("Przed zakńczeniem tury musisz umieścić płytkę na planszy");
+            }
         });
 
 	</script>

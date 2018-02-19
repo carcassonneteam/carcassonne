@@ -1,3 +1,7 @@
+body {
+    font-family: Tahoma, Arial serif;
+}
+
 .fixed-left {
     width: 15%;
     position: fixed;
@@ -21,9 +25,9 @@
 }
 
 .results .player.active {
-    background: linear-gradient(to bottom, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 50%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%);
+    background-image: linear-gradient(to bottom, #d9d334, #b8472b);
     border: solid 1px gold;
-    color: darkgreen;
+    color: #fff;
 }
 
 .results .player .name {
@@ -117,11 +121,30 @@
     justify-content: center;
 }
 
-.buttons button {
+.buttons button.icon {
     margin: 0 25px 0 25px;
     width: 50px;
     height: 50px;
     font-size: 30px;
     border: none;
     background: none;
+}
+
+button.end-turn {
+    font-size: 20px;
+    background: #d9d334;
+    background-image: -webkit-linear-gradient(top, #d9d334, #b8472b);
+    background-image: -moz-linear-gradient(top, #d9d334, #b8472b);
+    background-image: -ms-linear-gradient(top, #d9d334, #b8472b);
+    background-image: -o-linear-gradient(top, #d9d334, #b8472b);
+    background-image: linear-gradient(to bottom, #d9d334, #b8472b);
+    color: #ffffff;
+    padding: 10px 20px 10px 20px;
+    border: solid #c45d18 2px;
+    text-decoration: none;
+}
+
+button.end-turn:hover {
+    background: #fa723c;
+    text-decoration: none;
 }

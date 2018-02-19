@@ -63,12 +63,15 @@
         hasNeighbour: function (edge) {
             return this.neighbours[edge] !== null;
         },
+        getNeighbour: function (edge) {
+            return this.neighbours[edge];
+        },
         neighbourFits: function (edge, neighbour) {
             return neighbour.edges[Tile.oppositeEdge(edge)] === this.edges[edge];
         },
         addNeighbour: function (edge, neighbour) {
             if (this.hasNeighbour(edge)) {
-                throw "Already has neighbour on edge: " + neighbour;
+                throw "Already has neighbour on edge: " + edge;
             }
             if (!this.neighbourFits(edge, neighbour)) {
                 throw "Neighbour does not fit to the edge " + edge;
@@ -76,12 +79,8 @@
 
             this.neighbours[edge] = neighbour;
         },
-        clearNeighbours: function () {
-            for (var edge in this.neighbours) {
-                if (this.neighbours.hasOwnProperty(edge)) {
-                    this.neighbours[edge] = null;
-                }
-            }
+        removeNeighbour: function (edge) {
+            this.neighbours[edge] = null;
         },
         initDrag: function(onStart, onStop) {
             this.$container.draggable({

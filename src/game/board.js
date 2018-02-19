@@ -42,11 +42,7 @@
         return [TileSize[0] * Math.floor(cols/2), TileSize[1] * Math.floor(rows/2)];
     };
 
-    var newDropZone = function (tile, edge) {
-        var $dropZone = $('<div />')
-            .addClass('drop-zone')
-            .width(TileSize[0])
-            .height(TileSize[1]);
+    var newDropZonePosition = function (tile, edge) {
         var position = [tile.$container.position().left, tile.$container.position().top];
         switch (edge) {
             case 'n':
@@ -62,6 +58,14 @@
                 position[0] -= TileSize[0];
                 break;
         }
+        return position;
+    };
+
+    var newDropZone = function (tile, edge, position) {
+        var $dropZone = $('<div />')
+            .addClass('drop-zone')
+            .width(TileSize[0])
+            .height(TileSize[1]);
 
         $dropZone.css({
             left: position[0] + 'px',
@@ -95,10 +99,38 @@
             tile: tile,
             edge: edge
         });
-        $dropZone.appendTo($container);
-        dropZones.push($dropZone);
 
-        return $dropZone;
+        dropZones.push($dropZone);
+        $dropZone.appendTo($container);
+    };
+
+    var validateDropZonePosition = function (position) {
+        var userTile = gameController.currentTurn().tile;
+
+        var northPos = [position[0]              , position[1] - TileSize[1]];
+        var eastPos  = [position[0] + TileSize[0], position[1]];
+        var southPos = [position[0]              , position[1] + TileSize[1]];
+        var westPos  = [position[0] - TileSize[0], position[1]];
+
+        for (var i = 0; i < tiles.length; i++) {
+            var tile = tiles[i];
+            var tilePos = [tile.$container.position().left, tile.$container.position().top];
+
+            if (tilePos[0] === northPos[0] && tilePos[1] === northPos[1] && !userTile.neighbourFits('n', tile)) {
+                return false;
+            }
+            if (tilePos[0] === eastPos[0] && tilePos[1] === eastPos[1] && !userTile.neighbourFits('e', tile)) {
+                return false;
+            }
+            if (tilePos[0] === southPos[0] && tilePos[1] === southPos[1] && !userTile.neighbourFits('s', tile)) {
+                return false;
+            }
+            if (tilePos[0] === westPos[0] && tilePos[1] === westPos[1] && !userTile.neighbourFits('w', tile)) {
+                return false;
+            }
+        }
+
+        return true;
     };
 
     var clearDropZone = function() {
@@ -111,7 +143,7 @@
     var makeTemporaryBound = function (userTile, $dropZone) {
         var neighbourTile = $dropZone.data('tile');
         var edge = $dropZone.data('edge');
-        userTile.clearNeighbours();
+        userTile.removeNeighbour(edge);
         userTile.addNeighbour(Tile.oppositeEdge(edge), neighbourTile);
     };
 
@@ -134,7 +166,11 @@
                 $.each(['n', 'e', 's', 'w'], function() {
                     var edge = this.toString();
                     if (!tile.hasNeighbour(edge) && tile.neighbourFits(edge, userTile)) {
-                        newDropZone(tile, edge);
+                        var dropZonePosition = newDropZonePosition(tile, edge);
+                        if (validateDropZonePosition(dropZonePosition)) {
+                            newDropZone(tile, edge, dropZonePosition);
+
+                        }
                     }
                 });
             });
@@ -154,6 +190,25 @@
         },
         resetUserTile: function () {
             resetUserTile();
+        },
+        commitTile: function () {
+            var userTile = gameController.currentTurn().tile;
+            var hasNeighbour = false;
+
+            $(['n', 'e', 's', 'w']).each(function() {
+                var edge = this.toString();
+                if (userTile.hasNeighbour(edge)) {
+                    hasNeighbour = true;
+                    var neighbour = userTile.getNeighbour(edge);
+                    neighbour.addNeighbour(Tile.oppositeEdge(edge), userTile);
+                }
+            });
+
+            if (hasNeighbour) {
+                tiles.push(userTile);
+            }
+
+            return hasNeighbour;
         }
     };
 
