@@ -11,7 +11,7 @@ Sk³ad zespo³u:
 	Mariusz	Jopek	
 
 
-Aktywni cz³onowie:
+Aktywni cz³onkowie:
 
 	Piotr Krauzowicz
 	Marek Kieruzel
