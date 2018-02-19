@@ -4,6 +4,10 @@
         <div id="result-table" class="results">
         </div>
 
+        <div class="buttons">
+            <button id="rotate-left">Obróć w lewo</button>
+            <button id="rotate-right">Obróć w prawo</button>
+        </div>
         <div id="player-hud" class="player-hud">
             <div id="drawn-tile" class="drawn-tile"></div>
         </div>
@@ -43,26 +47,29 @@
 
         var game = window.gameController;
         var turn;
-        var $activeTile;
         var board;
 
         setTimeout(function () {
-		    board = new Board($("#board"));
+		    board = new Board($("#board"), $('#drawn-tile'));
             turn = game.firstTurn();
-            $activeTile = turn.tile.draw();
 		    updatePlayerHud();
         }, 500);
 
         function updatePlayerHud() {
             $('.player.active').removeClass('active');
             $('.player').eq(turn.playerNum).addClass('active');
-            $('#drawn-tile').html($activeTile);
-            turn.tile.initDrag(function(userTile) {
-                board.activateDropZone(userTile);
-            }, function () {
-                board.deactivateDropZone();
-            });
+            board.update();
         }
+
+        $('#rotate-left').click(function() {
+            board.resetUserTile();
+            turn.tile.rotateLeft();
+        });
+
+        $('#rotate-right').click(function() {
+            board.resetUserTile();
+            turn.tile.rotateRight();
+        });
 
 	</script>
 </body>

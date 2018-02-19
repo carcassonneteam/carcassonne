@@ -6,7 +6,7 @@
 	    playerNum: -1,
         tile: null,
         tileInserted: false
-    }
+    };
 
 	window.Game = function() {
 		window.gameController = this;
@@ -37,7 +37,11 @@
 	window.Game.prototype.nextTurn = function() {
         turn.playerNum = (turn.playerNum + 1) % players.length;
         turn.tile = TileController.random();
-        return $.extend({}, turn);
+        return turn;
+    };
+
+	window.Game.prototype.currentTurn = function() {
+	    return turn;
     };
 
 })(jQuery, window);

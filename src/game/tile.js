@@ -41,11 +41,24 @@
             var src = $.extend({}, this.edges);
             this.edges.n = src.w;
             this.edges.e = src.n;
-            this.edges.s = src.w;
+            this.edges.s = src.e;
             this.edges.w = src.s;
+
+            this.applyRotation();
         },
-        getRotation: function () {
-            return this.rotation;
+        rotateLeft: function() {
+            this.rotation = (this.rotation + 270) % 360;
+
+            var src = $.extend({}, this.edges);
+            this.edges.n = src.e;
+            this.edges.e = src.s;
+            this.edges.s = src.w;
+            this.edges.w = src.n;
+
+            this.applyRotation();
+        },
+        applyRotation: function () {
+            this.$container.find('img').rotate(this.rotation);
         },
         hasNeighbour: function (edge) {
             return this.neighbours[edge] !== null;

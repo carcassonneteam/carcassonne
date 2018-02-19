@@ -1,10 +1,12 @@
 (function($, window) {
     var $container;
+    var $tileContainer;
     var tiles = [];
     var dropZones = [];
 
-    var Board = function($cont) {
+    var Board = function($cont, $tileCont) {
         $container = $cont;
+        $tileContainer = $tileCont;
         clear();
         init.call(this);
     };
@@ -77,23 +79,26 @@
 
                 ui.helper.hide();
                 ui.draggable.show();
-                ui.draggable.data('src-parent', ui.draggable.parent()[0]);
                 $container.append(ui.draggable);
 
-                makeTemporaryBound(ui.draggable, $dropZone);
+                var userTile = gameController.currentTurn().tile;
+                makeTemporaryBound(userTile, $dropZone);
             },
             out: function(event, ui) {
-                ui.draggable.css('position', 'static');
-                ui.draggable.appendTo($(ui.draggable.data('src-parent')));
+                resetUserTile();
             },
             tolerance: 'intersect',
             hoverClass: 'active'
         });
 
-        $dropZone.data('tile', tile);
-        $dropZone.data('edge', edge);
+        $dropZone.data({
+            tile: tile,
+            edge: edge
+        });
         $dropZone.appendTo($container);
         dropZones.push($dropZone);
+
+        return $dropZone;
     };
 
     var clearDropZone = function() {
@@ -103,13 +108,18 @@
         dropZones.splice(0, dropZones.length); //clear
     };
 
-    var makeTemporaryBound = function (draggable, $dropZone) {
-        var userTile = draggable.data('tile');
+    var makeTemporaryBound = function (userTile, $dropZone) {
         var neighbourTile = $dropZone.data('tile');
         var edge = $dropZone.data('edge');
         userTile.clearNeighbours();
         userTile.addNeighbour(Tile.oppositeEdge(edge), neighbourTile);
-    }
+    };
+
+    var resetUserTile = function() {
+        var $userTile = gameController.currentTurn().tile.draw();
+        $userTile.css('position', 'static');
+        $tileContainer.append($userTile);
+    };
 
     var proto = {
         insert: function (tile) {
@@ -117,7 +127,8 @@
             tile.destroyDrag();
             $container.append(tile.draw(center()));
         },
-        activateDropZone: function (userTile) {
+        activateDropZone: function () {
+            var userTile = gameController.currentTurn().tile;
             $.each(tiles, function() {
                 var tile = this;
                 $.each(['n', 'e', 's', 'w'], function() {
@@ -130,8 +141,20 @@
         },
         deactivateDropZone: function () {
             clearDropZone();
-        }
+        },
+        update: function () {
+            var turn = gameController.currentTurn();
+            this.resetUserTile();
 
+            turn.tile.initDrag(function() {
+                board.activateDropZone();
+            }, function () {
+                board.deactivateDropZone();
+            });
+        },
+        resetUserTile: function () {
+            resetUserTile();
+        }
     };
 
     $.extend(Board.prototype, proto);

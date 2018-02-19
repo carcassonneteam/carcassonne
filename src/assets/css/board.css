@@ -111,3 +111,12 @@
     background: yellow;
 }
 
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.buttons button {
+    margin: 0 5px 0 5px;
+}
