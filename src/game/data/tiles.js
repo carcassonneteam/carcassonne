@@ -168,5 +168,5 @@ Tiles = [
             s: EdgeType.Field,
             w: EdgeType.Road
         }
-    },
+    }
 ];
