@@ -24,12 +24,58 @@
     var adjustSize = function () {
         var width = $container.width();
         var height = $container.height();
-        var borderSize = $container.outerWidth() - $container.innerWidth();
+        var borderSize = 0;//$container.outerWidth() - $container.innerWidth();
 
         $container.width(borderSize + width - width % TileSize[0]);
 
         height -= $container.position().top;
         $container.height(borderSize + height - height % TileSize[1]);
+    };
+
+    var expandBoard = function () {
+        var expand = [false, false, false, false];
+        var width = $container.innerWidth();
+        var height = $container.innerHeight();
+        for (var i = 0; i < tiles.length; i++) {
+            var tile = tiles[i];
+            var pos = [tile.$container.position().left, tile.$container.position().top];
+
+            if (!expand[0] && pos[0] === 0) {
+                expand[0] = true;
+            }
+            if (!expand[1] && pos[1] === 0) {
+                expand[1] = true;
+            }
+            if (!expand[2] && pos[1] + (expand[1] ? 2 * TileSize[1] : TileSize[1]) >= height) {
+                expand[2] = true;
+            }
+            if (!expand[3] && pos[0] + (expand[0] ? 2 * TileSize[0] : TileSize[0]) >= width) {
+                expand[3] = true;
+            }
+
+            if (expand[0] && expand[1] && expand[2] && expand[3]) {
+                break;
+            }
+        }
+
+        if (expand[0] || expand[1]) {
+            for (var i = 0; i < tiles.length; i++) {
+                var tile = tiles[i];
+                var pos = [tile.$container.position().left, tile.$container.position().top];
+
+                tile.$container.css({
+                    left: (expand[0] ? pos[0] + TileSize[0] : pos[0]) + 'px',
+                    top:  (expand[1] ? pos[1] + TileSize[1] : pos[1]) + 'px'
+                });
+            }
+        }
+
+        if (expand[2]) {
+            $container.height(height + TileSize[1]);
+        }
+        if (expand[3]) {
+            $container.width(width + TileSize[0]);
+        }
     };
 
     var loadStartingTile = function() {
@@ -209,6 +255,7 @@
 
             if (hasNeighbour) {
                 tiles.push(userTile);
+                expandBoard();
             }
 
             return hasNeighbour;
