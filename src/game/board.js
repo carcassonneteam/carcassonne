@@ -38,7 +38,7 @@
         var height = $container.innerHeight();
         for (var i = 0; i < tiles.length; i++) {
             var tile = tiles[i];
-            var pos = [tile.$container.position().left, tile.$container.position().top];
+            var pos = elPos(tile.$container);
 
             if (!expand[0] && pos[0] === 0) {
                 expand[0] = true;
@@ -61,7 +61,7 @@
         if (expand[0] || expand[1]) {
             for (var i = 0; i < tiles.length; i++) {
                 var tile = tiles[i];
-                var pos = [tile.$container.position().left, tile.$container.position().top];
+                var pos = elPos(tile.$container);
 
                 tile.$container.css({
                     left: (expand[0] ? pos[0] + TileSize[0] : pos[0]) + 'px',
@@ -89,7 +89,7 @@
     };
 
     var newDropZonePosition = function (tile, edge) {
-        var position = [tile.$container.position().left, tile.$container.position().top];
+        var position = elPos(tile.$container);
         switch (edge) {
             case 'n':
                 position[1] -= TileSize[1];
@@ -107,6 +107,10 @@
         return position;
     };
 
+    var elPos = function($element) {
+        return [parseInt($element.css('left')),  parseInt($element.css('top'))];
+    };
+
     var newDropZone = function (tile, edge, position) {
         var $dropZone = $('<div />')
             .addClass('drop-zone')
@@ -121,9 +125,11 @@
 
         $dropZone.droppable({
             drop: function(event, ui) {
+                var pos = elPos($(this));
+                console.log(pos);
                 ui.draggable.css({
-                    left: $(this).position().left + 'px',
-                    top:  $(this).position().top + 'px',
+                    left: pos[0] + 'px',
+                    top:  pos[1] + 'px',
                     position: 'absolute'
                 });
 
@@ -160,7 +166,7 @@
 
         for (var i = 0; i < tiles.length; i++) {
             var tile = tiles[i];
-            var tilePos = [tile.$container.position().left, tile.$container.position().top];
+            var tilePos = elPos(tile.$container);
 
             if (tilePos[0] === northPos[0] && tilePos[1] === northPos[1] && !userTile.neighbourFits('n', tile)) {
                 return false;
@@ -218,7 +224,6 @@
                         var dropZonePosition = newDropZonePosition(tile, edge);
                         if (validateDropZonePosition(dropZonePosition)) {
                             newDropZone(tile, edge, dropZonePosition);
-
                         }
                     }
                 });

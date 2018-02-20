@@ -98,8 +98,7 @@ Tiles = [
             n: EdgeType.Field,
             e: EdgeType.City,
             s: EdgeType.Field,
-            w: EdgeType.City,
-            m: EdgeType.City
+            w: EdgeType.City
         }
     },
     {
@@ -109,8 +108,7 @@ Tiles = [
             n: EdgeType.Field,
             e: EdgeType.City,
             s: EdgeType.Field,
-            w: EdgeType.City,
-            m: EdgeType.City
+            w: EdgeType.City
         }
     },
     {

@@ -5,7 +5,9 @@
         this.name = name;
         this.edges = edges;
         this.$container = $("<div/>")
-            .addClass("tile");
+            .addClass("tile")
+            .width(TileSize[0])
+            .height(TileSize[1]);
         this.$container.data('tile', this);
 
         this.clearNeighbours();
