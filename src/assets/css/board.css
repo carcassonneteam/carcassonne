@@ -154,3 +154,10 @@ button.end-turn:hover {
     background: #fa723c;
     text-decoration: none;
 }
+
+.info {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}

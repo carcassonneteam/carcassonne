@@ -126,7 +126,7 @@
         $dropZone.droppable({
             drop: function(event, ui) {
                 var pos = elPos($(this));
-                console.log(pos);
+
                 ui.draggable.css({
                     left: pos[0] + 'px',
                     top:  pos[1] + 'px',
@@ -234,6 +234,10 @@
         },
         update: function () {
             var turn = gameController.currentTurn();
+            if (!turn) {
+                return;
+            }
+
             this.resetUserTile();
 
             turn.tile.initDrag(function() {

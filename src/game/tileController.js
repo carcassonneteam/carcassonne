@@ -21,6 +21,9 @@
         }, random: function () {
             var index = Math.floor(Math.random()*tiles.length);
             return this.removeAndGet(index);
+        },
+        getTiles: function () {
+            return tiles;
         }
     };
 

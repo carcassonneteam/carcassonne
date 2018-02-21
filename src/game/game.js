@@ -2,16 +2,11 @@
 
 	var players = [];
 
-	var turn = {
-	    playerNum: -1,
-        tile: null,
-        tileInserted: false
-    };
+	var turn;
 
 	window.Game = function() {
 		window.gameController = this;
 		players = [];
-		TileController.init();
 	};
 
 	window.Game.prototype.showScreen = function(screen) {
@@ -30,18 +25,58 @@
 		return players[turn.playerNum];
 	};
 
+	window.Game.prototype.begin = function() {
+        TileController.init();
+    };
+
+	window.Game.prototype.initFirstTurn = function() {
+        turn = {
+            playerNum: -1,
+            tile: null
+        }
+    };
+
 	window.Game.prototype.firstTurn = function() {
+	    this.initFirstTurn();
         return this.nextTurn();
     };
 
 	window.Game.prototype.nextTurn = function() {
-        turn.playerNum = (turn.playerNum + 1) % players.length;
-        turn.tile = TileController.random();
+        var tile = TileController.random();
+        if (!tile) {
+            turn = null;
+            this.endGame();
+        } else {
+            turn.playerNum = (turn.playerNum + 1) % players.length;
+            turn.tile = tile;
+        }
+
         return turn;
     };
 
 	window.Game.prototype.currentTurn = function() {
 	    return turn;
+    };
+
+    window.Game.prototype.endGame = function() {
+        var msg = "Gra została zakończona.\nWyniki:\n";
+
+        //random points
+        //TODO: implement point counting
+        $.each(players, function() {
+            this.points = Math.ceil((Math.random() * 100) + 1);
+        });
+
+        var sorted = players.sort(function(player, other) {
+            return other.points - player.points;
+        });
+        $.each(sorted, function (pos) {
+            msg += "\t" + (pos + 1) + ". " + this.name + ",  liczba punktów: " + this.points + "\n";
+        });
+
+        alert(msg);
+        players = [];
+        this.showScreen('main');
     };
 
 })(jQuery, window);

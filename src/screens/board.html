@@ -15,6 +15,10 @@
         <div class="buttons">
             <button id="end-turn" class="end-turn">Zakończ turę</button>
         </div>
+
+        <div class="info">
+            Pozostało: <span id="tiles-remaining">...</span>
+        </div>
     </div>
 
     <div id="board" class="board"></div>
@@ -53,6 +57,8 @@
         var turn;
         var board;
 
+        game.begin();
+
         setTimeout(function () {
 		    board = new Board($("#board"), $('#drawn-tile'));
             turn = game.firstTurn();
@@ -61,7 +67,11 @@
 
         function updatePlayerHud() {
             $('.player.active').removeClass('active');
-            $('.player').eq(turn.playerNum).addClass('active');
+            $('#tiles-remaining').text(TileController.getTiles().length);
+            if (turn) {
+                $('.player').eq(turn.playerNum).addClass('active');
+            }
+
             board.update();
         }
 
