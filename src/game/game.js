@@ -10,7 +10,7 @@
 	};
 
 	window.Game.prototype.showScreen = function(screen) {
-		$("#game").load('screens/' + screen + ".html");
+		$("#game").load('screens/' + screen + ".html?t=" + new Date().getTime());
 	};
 
 	window.Game.prototype.addPlayer = function(player) {
